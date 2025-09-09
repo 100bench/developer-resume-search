@@ -1,0 +1,51 @@
+{{ define "form-template.html" }}
+{{ template "base.html" . }}
+{{ end }}
+
+{{ define "content" }}
+<!-- Main Section -->
+<main class="formPage my-xl">
+    <div class="content-box">
+        <div class="formWrapper">
+            <a class="backButton"
+               href="/account"><img src="/static/images/left.png" alt="left"></a>
+            <br>
+
+            <form class="form" method="POST" enctype="multipart/form-data">
+                <div class="form__field">
+                    <label for="formInput#title">Title</label>
+                    <input class="input input--text" id="formInput#title" type="text" name="title" value="{{ .Project.Title }}" placeholder="Enter title" />
+                </div>
+
+                <div class="form__field">
+                    <label for="formInput#description">Description</label>
+                    <textarea class="input input--textarea" id="formInput#description" name="description" placeholder="Enter description">{{ .Project.Description }}</textarea>
+                </div>
+
+                <div class="form__field">
+                    <label for="formInput#featured_image">Featured Image</label>
+                    <input class="input input--text" id="formInput#featured_image" type="file" name="featured_image" />
+                </div>
+
+                <div class="form__field">
+                    <label for="formInput#demo_link">Demo Link</label>
+                    <input class="input input--text" id="formInput#demo_link" type="url" name="demo_link" value="{{ .Project.DemoLink }}" placeholder="Enter demo link" />
+                </div>
+
+                <div class="form__field">
+                    <label for="formInput#source_link">Source Link</label>
+                    <input class="input input--text" id="formInput#source_link" type="url" name="source_link" value="{{ .Project.SourceLink }}" placeholder="Enter source link" />
+                </div>
+
+                <!-- Tags will need a more complex implementation, perhaps with JavaScript for dynamic input -->
+                <div class="form__field">
+                    <label for="formInput#tags">Tags (comma separated)</label>
+                    <input class="input input--text" id="formInput#tags" type="text" name="tags" value="{{ range $i, $tag := .Project.Tags }}{{ if $i }},{{ end }}{{ .Name }}{{ end }}" placeholder="e.g. Go, Gin, PostgreSQL" />
+                </div>
+
+                <input class="btn btn--sub btn--lg  my-md" type="submit" value="Submit" />
+            </form>
+        </div>
+    </div>
+</main>
+{{ end }}

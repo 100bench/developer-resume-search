@@ -1,0 +1,21 @@
+{{ define "users/message.html" }}
+{{ template "base.html" . }}
+{{ end }}
+
+{{ define "content" }}
+<!-- message.html -->
+<!-- Main Section -->
+<main class="messagePage my-xl">
+    <div class="content-box">
+        <div class="message">
+            <a class="backButton" href="/inbox"><img src="/static/images/left.png" alt="left"></a>
+            <h2 class="message__subject">{{ .Message.Subject }}</h2>
+            <a href="#" class="message__author">{{ .Message.Name }}</a>
+            <p class="message__date">{{ .Message.Created }}</p>
+            <div class="message__body">
+                {{ .Message.Body }}
+            </div>
+        </div>
+    </div>
+</main>
+{{ end }}

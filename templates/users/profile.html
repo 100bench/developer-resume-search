@@ -1,0 +1,108 @@
+{{ define "users/profile.html" }}
+{{ template "base.html" . }}
+{{ end }}
+
+{{ define "content" }}
+<!-- profile.html -->
+<!-- Main Section -->
+<main class="profile my-md">
+    <div class="container">
+        <div class="layout">
+            <div class="column column--1of3">
+                <div class="card text-center">
+                    <div class="card__body dev">
+                        <img class="avatar avatar--xl" src="/media/{{ .Profile.ProfileImage }}" />
+                        <h2 class="dev__name">{{ .Profile.Name }}</h2>
+                        <p class="dev__title">{{ sliceString .Profile.ShortIntro 60 }}</p>
+
+                        <ul class="dev__social">
+                            {{ if .Profile.SocialGithub }}
+                            <li>
+                                <a title="Github" href="{{ .Profile.SocialGithub }}" target="_blank"><i class="fa fa-github-square">Github</i></a>
+                            </li>
+                            {{ end }}
+
+                            {{ if .Profile.SocialYoutube }}
+                            <li>
+                                <a title="Youtube" href="{{ .Profile.SocialYoutube }}" target="_blank"><i class="fa fa-youtube">Youtube</i></a>
+                            </li>
+                            {{ end }}
+
+                            {{ if .Profile.SocialWebsite }}
+                            <li>
+                                <a title="Personal Website" href="{{.Profile.SocialWebsite}}" target="_blank"><i class="fa fa-sitemap">Website</i></a>
+                            </li>
+                            {{ end }}
+                        </ul>
+                        {{ if and .IsAuthenticated (ne .CurrentUserID .Profile.UserID) }}
+                        <a href="/create-message/{{ .Profile.ID }}" class="btn btn--sub btn--lg">Send Message </a>
+                        {{ end }}
+                    </div>
+                </div>
+            </div>
+            <div class="column column--2of3">
+                <div class="devInfo">
+                    <h3 class="devInfo__title">About Me</h3>
+                    <p class="devInfo__about">
+                        {{ linebreaksbr .Profile.Bio }}
+                    </p>
+                </div>
+                <div class="devInfo">
+                    <h3 class="devInfo__title">Skills</h3>
+                    <div class="devInfo__skills">
+                        {{ range .TopSkills }}
+                        <div class="devSkill">
+                            <h4 class="devSkill__title">{{ .Name }}</h4>
+                            <p class="devSkill__info">
+                                {{ .Description }}
+                            </p>
+                        </div>
+                        {{ end }}
+
+
+                        <h3 class="devInfo__subtitle">Other Skills</h3>
+                        <div class="devInfo__otherSkills">
+                            {{ range .OtherSkills }}
+                            <span class="tag tag--pill tag--sub tag--lg">
+                                  <small>{{ .Name }}</small>
+                                </span>
+                            {{ end }}
+                        </div>
+                    </div>
+                </div>
+                <div class="devInfo">
+                    <h3 class="devInfo__title">Projects</h3>
+                    <div class="grid grid--two">
+
+                        {{ range .Profile.Projects }}
+                        <div class="column">
+                            <div class="card project">
+                                <a href="/project/{{ .ID }}" class="project">
+                                    <img class="project__thumbnail" src="/media/{{ .FeaturedImage }}" alt="project thumbnail" />
+                                    <div class="card__body">
+                                        <h3 class="project__title">{{ .Title }}</h3>
+                                        <p><a class="project__author" href="/profile/{{ .Owner.ID }}">By {{.Owner.Name}}</a></p>
+                                        <p class="project--rating">
+                                            <span style="font-weight: bold;">{{ .VoteRatio }}%</span> Positive
+                                            Feedback ({{ .VoteTotal }}) {{ pluralize .VoteTotal "Vote" "Votes" }}
+                                        </p>
+                                        <div class="project__tags">
+                                            {{ range .Tags }}
+                                            <span class="tag tag--pill tag--main">
+                                                  <small>{{ .Name }}</small>
+                                                </span>
+                                            {{ end }}
+                                        </div>
+                                    </div>
+                                </a>
+                            </div>
+                        </div>
+                        {{ end }}
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</main>
+{{ end }}

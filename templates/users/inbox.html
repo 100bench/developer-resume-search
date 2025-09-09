@@ -1,0 +1,27 @@
+{{ define "users/inbox.html" }}
+{{ template "base.html" . }}
+{{ end }}
+
+{{ define "content" }}
+<!-- Main Section -->
+<main class="inbox my-xl">
+    <div class="content-box">
+        <h3 class="inbox__title">New Messages(<span>{{ .UnreadCount }}</span>)</h3>
+        <ul class="messages">
+            {{ range .MessageRequests }}
+            {{ if not .IsRead }}
+            <li class="message message--unread">
+                {{ else }}
+            <li class="message">
+                {{ end }}
+                <a href="/message/{{ .ID }}">
+                    <span class="message__author">{{ .Name }}</span>
+                    <span class="message__subject">{{ .Subject }}</span>
+                    <span class="message__date">{{ .Created }}</span>
+                </a>
+            </li>
+            {{ end }}
+        </ul>
+    </div>
+</main>
+{{ end }}

@@ -1,0 +1,90 @@
+{{ define "single-project.html" }}
+{{ template "base.html" . }}
+{{ end }}
+
+{{ define "content" }}
+<!-- Main Section -->
+<main class="singleProject my-md">
+    <div class="container">
+        <div class="layout">
+            <div class="column column--1of3">
+                <h3 class="singleProject__subtitle">Tools & Stacks</h3>
+                <div class="singleProject__toolStack">
+                    {{ range .Project.Tags }}
+                    <span class="tag tag--pill tag--sub tag--lg">
+                      <small>{{ .Name }}</small>
+                    </span>
+                    {{ end }}
+                </div>
+                {{ if .Project.SourceLink }}
+                <a class="singleProject__liveLink" href="{{ .Project.SourceLink }}" target="_blank">Source Code
+                </a>&nbsp;&nbsp;&nbsp;
+                {{ end }}
+                {{ if .Project.DemoLink }}
+                <a class="singleProject__liveLink" href="{{ .Project.DemoLink }}" target="_blank">Live Demo
+                </a>
+                {{ end }}
+            </div>
+            <div class="column column--2of3">
+                <img class="singleProject__preview" src="/media/{{ .Project.FeaturedImage }}" alt="portfolio thumbnail" />
+                <a href="/profile/{{ .Project.Owner.ID }}" class="singleProject__developer">{{ .Project.Owner.Name }}</a>
+                <h2 class="singleProject__title">{{ .Project.Title }}</h2>
+                <h3 class="singleProject__subtitle">About the Project</h3>
+                <div class="singleProject__info">
+                    {{ linebreaksbr .Project.Description }}
+                </div>
+
+                <div class="comments">
+                    <h3 class="singleProject__subtitle">Feedback</h3>
+                    <h5 class="project--rating">
+                        {{ .Project.VoteRatio }}%
+                        Positive Feedback ({{ .Project.VoteTotal }}) {{ pluralize .Project.VoteTotal "Vote" "Votes" }}
+                    </h5>
+
+                    {{ if .HasReviewed }}
+                    <p>You have already submitted your review for this project</p>
+                    {{ else if .IsOwner }}
+                    <p>You cannot review your own work</p>
+                    {{ else if .IsAuthenticated }}
+                    <form class="form" action="/project/{{ .Project.ID }}" method="POST">
+                        <div class="form__field">
+                            <label for="formInput#textarea">Review Body </label>
+                            <textarea class="input input--textarea" name="body" id="formInput#textarea" placeholder="Add your comment here"></textarea>
+                        </div>
+                        <div class="form__field">
+                            <label for="formInput#value">Vote Value </label>
+                            <select class="input input--select" name="value" id="formInput#value">
+                                <option value="up">Up Vote</option>
+                                <option value="down">Down Vote</option>
+                            </select>
+                        </div>
+                        <input class="btn btn--sub btn--lg" type="submit" value="Comments" />
+                    </form>
+                    {{ else }}
+                    <a href="/login">Please login to leave a review</a>
+                    {{ end }}
+
+                    <div class="commentList">
+                        {{ range .Project.Reviews }}
+                        {{ if .Body }}
+                        <div class="comment">
+                            <a href="/profile/{{ .Owner.ID }}">
+                                <img class="avatar avatar--md"
+                                     src="/media/{{ .Owner.ProfileImage }}" alt="user" />
+                            </a>
+                            <div class="comment__details">
+                                <a href="/profile/{{ .Owner.ID }}" class="comment__author">{{ .Owner.Name }}</a>
+                                <p class="comment__info">
+                                    {{ linebreaksbr .Body }}
+                                </p>
+                            </div>
+                        </div>
+                        {{ end }}
+                        {{ end }}
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</main>
+{{ end }}

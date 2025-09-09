@@ -1,0 +1,21 @@
+{{ define "delete.html" }}
+{{ template "base.html" . }}
+{{ end }}
+
+{{ define "content" }}
+<!-- Main Section -->
+<main class="formPage my-xl">
+    <div class="content-box">
+        <div class="formWrapper">
+
+            <br>
+
+            <form class="form" method="POST">
+                <p>Are your sure you want to delete <b>"{{ if .Object.Title }}{{ .Object.Title }}{{ else }}{{ .Object.Name }}{{ end }}"</b>?</p>
+                <a class="btn btn--sub btn--lg  my-md" href="/account">&#x2190 Go Back</a>
+                <input class="btn btn--sub btn--lg  my-md" type="submit" value="Delete" />
+            </form>
+        </div>
+    </div>
+</main>
+{{ end }}

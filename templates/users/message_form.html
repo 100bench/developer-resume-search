@@ -1,0 +1,46 @@
+{{ define "users/message_form.html" }}
+{{ template "base.html" . }}
+{{ end }}
+
+{{ define "content" }}
+<!-- message_form.html -->
+<!-- Main Section -->
+<main class="formPage my-xl">
+    <div class="content-box">
+        <div class="formWrapper">
+            <a class="backButton" href="/profile/{{ .Recipient.ID }}"><img
+                    src="/static/images/left.png"
+                    alt="left"></a>
+            <br>
+
+            <form class="form" method="POST" action="/create-message/{{ .Recipient.ID }}">
+
+                {{ if not .IsAuthenticated }}
+                <!-- Input:Text -->
+                <div class="form__field">
+                    <label for="formInput#name">Name </label>
+                    <input class="input input--text" id="formInput#name" type="text" name="name" placeholder="Your Name" value="{{ .Message.Name }}" />
+                </div>
+
+                <!-- Input:Text -->
+                <div class="form__field">
+                    <label for="formInput#email">Email</label>
+                    <input class="input input--text" id="formInput#email" type="email" name="email" placeholder="your@email.com" value="{{ .Message.Email }}" />
+                </div>
+                {{ end }}
+                <!-- Input:Text -->
+                <div class="form__field">
+                    <label for="formInput#subject">Subject </label>
+                    <input class="input input--text" id="formInput#subject" type="text" name="subject" placeholder="Subject" value="{{ .Message.Subject }}" />
+                </div>
+                <!-- Input:Text -->
+                <div class="form__field">
+                    <label for="formInput#body">Body </label>
+                    <textarea class="input input--textarea" id="formInput#body" name="body" placeholder="Your Message">{{ .Message.Body }}</textarea>
+                </div>
+                <input class="btn btn--sub btn--lg  my-md" type="submit" value="Submit" />
+            </form>
+        </div>
+    </div>
+</main>
+{{ end }}

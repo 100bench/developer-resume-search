@@ -1,0 +1,109 @@
+{{ define "users/account.html" }}
+{{ template "base.html" . }}
+{{ end }}
+
+{{ define "content" }}
+<!-- Main Section -->
+<main class="settingsPage profile my-md">
+    <div class="container">
+        <div class="layout">
+            <div class="column column--1of3">
+                <div class="card text-center">
+                    <div class="card__body dev">
+                        <a class="tag tag--pill tag--main settings__btn" href="/edit-account"><i class="im im-edit"></i> Edit</a>
+                        <img class="avatar avatar--xl dev__avatar" src="/media/{{ .Profile.ProfileImage }}" />
+                        <h2 class="dev__name">{{ .Profile.Name }}</h2>
+                        <p class="dev__title">{{ .Profile.ShortIntro }}</p>
+
+                        <ul class="dev__social">
+                            {{ if .Profile.SocialGithub }}
+                            <li>
+                                <a title="Github" href="{{ .Profile.SocialGithub }}" target="_blank"><i class="fa fa-github-square">Github</i></a>
+                            </li>
+                            {{ end }}
+
+                            {{ if .Profile.SocialYoutube }}
+                            <li>
+                                <a title="Youtube" href="{{ .Profile.SocialYoutube }}" target="_blank"><i class="fa fa-youtube">Youtube</i></a>
+                            </li>
+                            {{ end }}
+
+                            {{ if .Profile.SocialWebsite }}
+                            <li>
+                                <a title="Personal Website" href="{{.Profile.SocialWebsite}}" target="_blank"><i class="fa fa-sitemap">Website</i></a>
+                            </li>
+                            {{ end }}
+                        </ul>
+
+                    </div>
+                </div>
+            </div>
+            <div class="column column--2of3">
+                <div class="devInfo">
+                    <h3 class="devInfo__title">About Me</h3>
+                    <p class="devInfo__about">
+                        {{ .Profile.Bio }}
+                    </p>
+                </div>
+                <div class="settings">
+                    <h3 class="settings__title">Skills</h3>
+                    <a class="tag tag--pill tag--sub settings__btn tag--lg" href="/create-skill"><i class="im im-plus"></i> Add
+                        Skill</a>
+                </div>
+
+                <table class="settings__table">
+                    {{ range .Skills }}
+                    <tr>
+                        <td class="settings__tableInfo">
+                            <h4>{{ .Name }}</h4>
+                            <p>
+                                {{ .Description }}
+                            </p>
+                        </td>
+                        <td class="settings__tableActions">
+                            <a class="tag tag--pill tag--main settings__btn" href="/update-skill/{{ .ID }}"><i
+                                    class="im im-edit"></i> Edit</a>
+                            <a class="tag tag--pill tag--main settings__btn" href="/delete-skill/{{ .ID }}"><i
+                                    class="im im-x-mark-circle-o"></i>
+                                Delete</a>
+                        </td>
+                    </tr>
+                    {{ end }}
+                </table>
+
+                <div class="settings">
+                    <h3 class="settings__title">Projects</h3>
+                    <a class="tag tag--pill tag--sub settings__btn tag--lg" href="/create-project"><i
+                            class="im im-plus"></i> Add
+                        Project</a>
+                </div>
+
+                <table class="settings__table">
+                    {{ range .Projects }}
+                    <tr>
+                        <td class="settings__thumbnail">
+                            <a
+                                    href="/project/{{ .ID }}"><img src="/media/{{ .FeaturedImage }}"
+                                                                 alt="Project Thumbnail" /></a>
+                        </td>
+                        <td class="settings__tableInfo">
+                            <a href="/project/{{ .ID }}">{{ .Title }}</a>
+                            <p>
+                                {{ .Description }} {{/* Simplified slice for now */}}
+                            </p>
+                        </td>
+                        <td class="settings__tableActions">
+                            <a class="tag tag--pill tag--main settings__btn" href="/update-project/{{ .ID }}"><i
+                                    class="im im-edit"></i> Edit</a>
+                            <a class="tag tag--pill tag--main settings__btn" href="/delete-project/{{ .ID }}"><i
+                                    class="im im-x-mark-circle-o"></i>
+                                Delete</a>
+                        </td>
+                    </tr>
+                    {{ end }}
+                </table>
+            </div>
+        </div>
+    </div>
+</main>
+{{ end }}

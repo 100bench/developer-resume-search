@@ -1,0 +1,66 @@
+{{ define "users/index.html" }}
+{{ template "base.html" . }}
+{{ end }}
+
+{{ define "content" }}
+<!-- Main Section -->
+<main class="home">
+    <section class="hero-section text-center">
+        <div class="container container--narrow">
+            <div class="hero-section__box">
+                <h2>CONNECT WITH <span>DEVELOPERS</span></h2>
+                <h2>FROM AROUND THE WORLD</h2>
+            </div>
+
+            <div class="hero-section__search">
+                <form id="search" class="form" action="/profiles" method="get">
+                    <div class="form__field">
+                        <label for="formInput#search">Search Developers </label>
+                        <input class="input input--text" id="formInput#search" type="text" name="search_query"
+                               value="{{ .SearchQuery }}"
+                               placeholder="Search by developer name"/>
+
+                    </div>
+
+                    <input class="btn btn--sub btn--lg" type="submit" value="Search"/>
+                </form>
+            </div>
+        </div>
+    </section>
+    <!-- Search Result: DevList -->
+    <section class="devlist">
+        <div class="container">
+            <div class="grid grid--three">
+                {{ range .Profiles }}
+                <div class="column card">
+                    <div class="dev">
+                        <a href="/profile/{{ .ID }}" class="card__body">
+                            <div class="dev__profile">
+                                <img class="avatar avatar--md" src="/media/{{ .ProfileImage }}" alt="image"/>
+                                <div class="dev__meta">
+                                    <h3>{{ .Name }}</h3>
+                                    <h5>{{ sliceString .ShortIntro 60 }}</h5>
+                                </div>
+                            </div>
+                            <p class="dev__info">
+                                {{ sliceString .Bio 150 }}
+                            </p>
+                            <div class="dev__skills">
+                                {{ range .Skills }}
+                                <span class="tag tag--pill tag--main">
+                                      <small>{{ .Name }}</small>
+                                    </span>
+                                {{ end }}
+                            </div>
+                        </a>
+                    </div>
+                </div>
+                {{ end }}
+            </div>
+        </div>
+    </section>
+
+    {{ template "pagination.html" .Pagination }}
+
+</main>
+{{ end }}

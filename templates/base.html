@@ -1,0 +1,51 @@
+{{ define "base.html" }}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8"/>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <title>DevSearch - Connect with Developers!</title>
+    <!-- Favicon -->
+    <link rel="shortcut icon" href="/static/images/favicon.ico" type="image/x-icon"/>
+    <link rel="stylesheet" href="/static/uikit/styles/uikit.css"/>
+    <link rel="stylesheet" href="/static/styles/app.css"/>
+</head>
+<body>
+    {{ template "navbar.html" . }}
+
+    <!-- Flash Messages -->
+    {{ range .FlashSuccess }}
+    <div class="alert alert--success">
+        <p class="alert__message">{{ . }}</p>
+        <button class="alert__close">
+            <i class="im im-x-mark-circle"></i>
+        </button>
+    </div>
+    {{ end }}
+
+    {{ range .FlashError }}
+    <div class="alert alert--error">
+        <p class="alert__message">{{ . }}</p>
+        <button class="alert__close">
+            <i class="im im-x-mark-circle"></i>
+        </button>
+    </div>
+    {{ end }}
+
+    {{ range .FlashInfo }}
+    <div class="alert alert--info">
+        <p class="alert__message">{{ . }}</p>
+        <button class="alert__close">
+            <i class="im im-x-mark-circle"></i>
+        </button>
+    </div>
+    {{ end }}
+
+    {{ block "content" . }}{{ end }}
+
+<script src="/static/uikit/app.js"></script>
+<script src="/static/js/script.js"></script>
+</body>
+</html>
+{{ end }}

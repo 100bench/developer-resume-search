@@ -1,0 +1,84 @@
+{{ define "users/login_register.html" }}
+  {{ template "base.html" . }}
+{{ end }}
+
+{{ define "content" }}
+{{ if eq .Page "register" }}
+
+<div class="auth">
+  <div class="card">
+    <div class="auth__header text-center">
+      <a href="/"><img src="/static/images/logo.svg" alt="icon"/></a>
+      <h3>Register an Account</h3>
+      <p>Create a new developer account</p>
+    </div>
+
+    <form action="/register" method="post" class="form auth__form">
+      <div class="form__field">
+        <label for="reg_username">Username</label>
+        <input class="input input--text" id="reg_username" type="text" name="username" placeholder="Enter your username...">
+      </div>
+
+      <div class="form__field">
+        <label for="reg_email">Email</label>
+        <input class="input input--text" id="reg_email" type="email" name="email" placeholder="Enter your email...">
+      </div>
+
+      <div class="form__field">
+        <label for="reg_password1">Password</label>
+        <input class="input input--text" id="reg_password1" type="password" name="password" placeholder="••••••••">
+      </div>
+
+      <div class="form__field">
+        <label for="reg_password2">Confirm Password</label>
+        <input class="input input--text" id="reg_password2" type="password" name="password2" placeholder="••••••••">
+      </div>
+
+      <div class="auth__actions">
+        <input class="btn btn--sub btn--lg" type="submit" value="Register User"/>
+      </div>
+    </form>
+
+    <div class="auth__alternative">
+      <p>Already have an Account?</p>
+      <a href="/login">Log In</a>
+    </div>
+  </div>
+</div>
+
+{{ else }}
+
+<div class="auth">
+  <div class="card">
+    <div class="auth__header text-center">
+      <a href="/"><img src="/static/images/logo.svg" alt="icon"/></a>
+      <h3>Account Login</h3>
+      <p>Hello Developer, Welcome Back!</p>
+    </div>
+
+    <form class="form auth__form" action="/login" method="post">
+      <div class="form__field">
+        <label for="login_username">Username</label>
+        <input class="input input--text" id="login_username" type="text" name="username" placeholder="Enter your username...">
+      </div>
+
+      <div class="form__field">
+        <label for="login_password">Password</label>
+        <input class="input input--text" id="login_password" type="password" name="password" placeholder="••••••••">
+      </div>
+
+      <div class="auth__actions">
+        <input class="btn btn--sub btn--lg" type="submit" value="Log In"/>
+        <!-- <a href="/forgot-password">Forget Password?</a> -->
+      </div>
+    </form>
+
+    <div class="auth__alternative">
+      <p>Don’t have an Account?</p>
+      <a href="/register">Sign Up</a>
+    </div>
+  </div>
+</div>
+
+{{ end }}
+{{ end }}

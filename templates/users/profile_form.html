@@ -1,0 +1,65 @@
+{{ define "users/profile_form.html" }}
+{{ template "base.html" . }}
+{{ end }}
+
+{{ define "content" }}
+<!-- profile_form.html -->
+<!-- Main Section -->
+<main class="formPage my-xl">
+    <div class="content-box">
+        <div class="formWrapper">
+            <a class="backButton" href="/account"><img src="/static/images/left.png" alt="left"></a>
+            <br>
+
+            <form class="form" method="POST" action="/edit-account" enctype="multipart/form-data">
+                <div class="form__field">
+                    <label for="formInput#name">Name</label>
+                    <input class="input input--text" id="formInput#name" type="text" name="name" value="{{ .Profile.Name }}" />
+                </div>
+
+                <div class="form__field">
+                    <label for="formInput#email">Email</label>
+                    <input class="input input--text" id="formInput#email" type="email" name="email" value="{{ .Profile.Email }}" />
+                </div>
+
+                <div class="form__field">
+                    <label for="formInput#username">Username</label>
+                    <input class="input input--text" id="formInput#username" type="text" name="username" value="{{ .Profile.Username }}" />
+                </div>
+
+                <div class="form__field">
+                    <label for="formInput#short_intro">Short Intro</label>
+                    <input class="input input--text" id="formInput#short_intro" type="text" name="short_intro" value="{{ .Profile.ShortIntro }}" />
+                </div>
+
+                <div class="form__field">
+                    <label for="formInput#bio">Bio</label>
+                    <textarea class="input input--textarea" id="formInput#bio" name="bio">{{ .Profile.Bio }}</textarea>
+                </div>
+
+                <div class="form__field">
+                    <label for="formInput#profile_image">Profile Image</label>
+                    <input class="input input--text" id="formInput#profile_image" type="file" name="profile_image" />
+                </div>
+
+                <div class="form__field">
+                    <label for="formInput#social_github">GitHub Link</label>
+                    <input class="input input--text" id="formInput#social_github" type="url" name="social_github" value="{{ .Profile.SocialGithub }}" />
+                </div>
+
+                <div class="form__field">
+                    <label for="formInput#social_youtube">YouTube Link</label>
+                    <input class="input input--text" id="formInput#social_youtube" type="url" name="social_youtube" value="{{ .Profile.SocialYoutube }}" />
+                </div>
+
+                <div class="form__field">
+                    <label for="formInput#social_website">Personal Website</label>
+                    <input class="input input--text" id="formInput#social_website" type="url" name="social_website" value="{{ .Profile.SocialWebsite }}" />
+                </div>
+
+                <input class="btn btn--sub btn--lg  my-md" type="submit" value="Submit" />
+            </form>
+        </div>
+    </div>
+</main>
+{{ end }}
